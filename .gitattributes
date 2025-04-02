@@ -1,0 +1,37 @@
+# Unity-specific files
+*.pidb binary
+*.sln text eol=lf
+*.csproj text eol=lf
+*.meta text eol=lf
+*.prefs text eol=lf
+*.asset text eol=lf
+*.unity text eol=lf
+*.mat text eol=lf
+*.anim text eol=lf
+*.controller text eol=lf
+*.physicMaterial text eol=lf
+*.physicsMaterial2D text eol=lf
+*.guiskin text eol=lf
+*.fontsettings text eol=lf
+*.asset text eol=lf
+*.mixer text eol=lf
+*.playable text eol=lf
+*.shader text eol=lf
+*.cubemap text eol=lf
+*.flare text eol=lf
+*.mask text eol=lf
+*.overrideController text eol=lf
+*.playableAsset text eol=lf
+*.rendertexture text eol=lf
+*.flare text eol=lf
+*.uxml text eol=lf
+*.uss text eol=lf
+
+# Unity3D generated files
+Temp/
+Library/
+Obj/
+Build/
+*.csproj.user
+*.pidb.meta
+*.sln.meta

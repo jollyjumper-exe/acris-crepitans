@@ -1,0 +1,117 @@
+# ==========================
+# UNITY-SPECIFIC FILES
+# ==========================
+
+# Unity auto-generated folders
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# Ignore MemoryCaptures and Recordings
+/[Mm]emoryCaptures/
+[RR]ecordings/
+
+# Ignore Addressables temporary packed data
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
+
+# ==========================
+# UNITY PACKAGE CACHE FILES
+# ==========================
+
+# Unity Package Manager
+/[Pp]ackages/com.unity.package-manager/
+Packages/com.unity.*.lock
+
+# Unity Visual Scripting (Bolt)
+[Bb]olt/Assets/
+[Bb]olt/Generated/
+
+# Prevent unwanted changes from Unity PackageCache
+/[Ll]ibrary/PackageCache/
+
+# ==========================
+# UNITY HDRP-SPECIFIC FILES
+# ==========================
+
+# HDRP Lighting Data (should be regenerated automatically)
+/[Ll]ibrary/BakedData/
+LightingData.asset
+ReflectionProbe-*.*
+
+# Shader cache (recompiled by Unity if missing)
+/[Ll]ibrary/ShaderCache/
+
+# HDRP LookDev data (not needed in version control)
+LookDevConfig.json
+
+# HDRP Probe Data (can be ignored as it’s auto-generated)
+LightProbes.asset
+ReflectionProbes.asset
+ProbeVolume.asset
+
+# ==========================
+# VERSION CONTROL & IDE FILES
+# ==========================
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userprefs
+*.csproj
+*.unityproj
+*.sln
+*.tmp
+*.pdb
+*.opendb
+*.VC.db
+
+# Rider
+/.idea/
+/[Oo]ut/
+/[Aa]ssets/Plugins/Editor/JetBrains*
+
+# MonoDevelop
+*.pidb
+*.mdb
+
+# Crashlytics
+crashlytics-build.properties
+
+# ==========================
+# EXPORTS, BUILDS, & PLATFORM-SPECIFIC FILES
+# ==========================
+
+# Unity Asset Store Tools
+/[Aa]ssets/AssetStoreTools*
+
+# Android builds
+*.apk
+*.aab
+*.obb
+
+# iOS builds
+*.xcworkspace/
+*.xcuserdatad/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.mobileprovision
+
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*.swp
+*.swo
