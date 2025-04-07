@@ -3,8 +3,14 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
+    public bool isTapped;
     public void OnTap()
     {
-        Debug.Log("Screen tapped!");
+        isTapped = true;
+    }
+
+    private void Update()
+    {
+        isTapped = false;
     }
 }
