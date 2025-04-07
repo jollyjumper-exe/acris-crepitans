@@ -8,6 +8,7 @@ public class BackgroundManager : MonoBehaviour
     {
         Color randomColor = GetRandomSaturatedColor();
         backgroundImage.color = randomColor;
+    }
 
     private Color GetRandomSaturatedColor()
     {
