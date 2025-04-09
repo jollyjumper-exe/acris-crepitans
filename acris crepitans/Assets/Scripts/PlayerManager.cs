@@ -30,8 +30,11 @@ public class PlayerManager : MonoBehaviour
         leftWorld.x += screenOffset;
         rightWorld.x -= screenOffset;
 
-        float y = playerVisual.position.y;
+        float screenY = Screen.height * 0.25f;
+        Vector3 worldY = mainCamera.ScreenToWorldPoint(new Vector3(0, screenY, mainCamera.nearClipPlane));
+        float y = worldY.y;
         float z = playerVisual.position.z;
+
         leftPos = new Vector3(leftWorld.x, y, z);
         rightPos = new Vector3(rightWorld.x, y, z);
 
