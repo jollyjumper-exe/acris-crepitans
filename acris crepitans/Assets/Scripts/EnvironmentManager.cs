@@ -8,6 +8,7 @@ public class EnvironmentManager : MonoBehaviour
     [SerializeField] private float tileHeight = 1f;
     [SerializeField] private float scrollSpeed = 2f;
     [SerializeField] private Transform tileParent;
+    [SerializeField] private int obstacleIntensity = 1; // You can tweak this per difficulty
 
     private List<GameObject> activeTiles = new List<GameObject>();
     private Camera mainCamera;
@@ -16,12 +17,10 @@ public class EnvironmentManager : MonoBehaviour
     {
         mainCamera = Camera.main;
 
-        // Spawn initial tiles upward
         for (int i = 0; i < tileCount; i++)
         {
-            Vector3 spawnPos = Vector3.up * i * tileHeight;
-            spawnPos = spawnPos + new Vector3(0,0,1);
-            GameObject tile = Instantiate(tilePrefab, spawnPos, Quaternion.identity, tileParent);
+            Vector3 spawnPos = new Vector3(0, i * tileHeight, 1);
+            GameObject tile = CreateTileWithObstacles(spawnPos);
             activeTiles.Add(tile);
         }
     }
@@ -32,10 +31,8 @@ public class EnvironmentManager : MonoBehaviour
         {
             GameObject tile = activeTiles[i];
 
-            // Move tile downward
             tile.transform.position += Vector3.down * scrollSpeed * Time.deltaTime;
 
-            // If tile is below the screen, destroy and spawn a new one
             if (IsBelowScreen(tile))
             {
                 Destroy(tile);
@@ -43,17 +40,24 @@ public class EnvironmentManager : MonoBehaviour
 
                 float highestY = GetHighestTileY();
                 Vector3 spawnPos = new Vector3(0, highestY + tileHeight, 1);
-                GameObject newTile = Instantiate(tilePrefab, spawnPos, Quaternion.identity, tileParent);
+                GameObject newTile = CreateTileWithObstacles(spawnPos);
                 activeTiles.Add(newTile);
             }
         }
+    }
+
+    private GameObject CreateTileWithObstacles(Vector3 position)
+    {
+        GameObject tile = Instantiate(tilePrefab, position, Quaternion.identity, tileParent);
+        TileManager tileManager = tile.GetComponent<TileManager>(); 
+        tileManager.SpawnObstacles(tile, obstacleIntensity);
+        return tile;
     }
 
     private bool IsBelowScreen(GameObject tile)
     {
         float camBottom = mainCamera.transform.position.y - mainCamera.orthographicSize;
         float tileTop = tile.transform.position.y + tileHeight / 2f;
-
         return tileTop < camBottom;
     }
 

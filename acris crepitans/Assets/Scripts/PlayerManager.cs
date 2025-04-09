@@ -11,7 +11,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float jumpDuration = 0.2f;
 
     [SerializeField] private Camera mainCamera;
-    [SerializeField] private float screenOffset = 0.5f; // World units from screen edge
+    [SerializeField] private float screenOffset = 0.5f; 
 
     private bool isOnLeft = true;
     private bool isJumping = false;
@@ -24,21 +24,17 @@ public class PlayerManager : MonoBehaviour
         if (mainCamera == null)
         mainCamera = Camera.main;
 
-        // World positions at screen left and right, with padding
         Vector3 leftWorld = mainCamera.ScreenToWorldPoint(new Vector3(0, Screen.height / 2f, mainCamera.nearClipPlane));
         Vector3 rightWorld = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height / 2f, mainCamera.nearClipPlane));
 
-        // Offset from screen edges
         leftWorld.x += screenOffset;
         rightWorld.x -= screenOffset;
 
-        // Fix Y and Z to match player
         float y = playerVisual.position.y;
         float z = playerVisual.position.z;
         leftPos = new Vector3(leftWorld.x, y, z);
         rightPos = new Vector3(rightWorld.x, y, z);
 
-        // Start on the left side
         playerVisual.position = leftPos;
         isOnLeft = true;
     }
