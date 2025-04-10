@@ -3,7 +3,6 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private InputManager inputManager;
-    [SerializeField] private BackgroundManager backgroundManager;
     [SerializeField] private Transform playerVisual;
 
     [SerializeField] private float jumpDistance = 3f;
@@ -44,7 +43,6 @@ public class PlayerManager : MonoBehaviour
         if (inputManager.isTapped && !isJumping)
         {
             Jump();
-            backgroundManager.ChangeBackgroundColor();
         }
 
         float crawlHeight = GameManager.Instance.CrawledHeight;
