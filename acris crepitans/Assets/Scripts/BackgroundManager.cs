@@ -3,9 +3,9 @@ using UnityEngine.UI;
 
 public class BackgroundManager : MonoBehaviour
 {
-    public Image backgroundImage;  // Reference to the background image
-    public Canvas canvas;  // Reference to the canvas (if you want to resize it)
-    public RectTransform canvasRectTransform;  // Reference to the canvas RectTransform
+    public Image backgroundImage;
+    public Canvas canvas;  
+    public RectTransform canvasRectTransform;  
 
     private Camera mainCamera;
 
@@ -23,7 +23,6 @@ public class BackgroundManager : MonoBehaviour
 
         AdjustCanvasToCamera();
 
-        // Ensure canvas and RectTransform are set
         if (canvas == null)
             canvas = GetComponent<Canvas>();
 
@@ -36,14 +35,12 @@ public class BackgroundManager : MonoBehaviour
         //so empty :()
     }
 
-    // Method to change background color to a random saturated color
     public void ChangeBackgroundColor()
     {
         Color randomColor = GetRandomSaturatedColor();
         backgroundImage.color = randomColor;
     }
 
-    // Generate a random saturated color
     private Color GetRandomSaturatedColor()
     {
         float hue = Random.Range(0f, 1f);
