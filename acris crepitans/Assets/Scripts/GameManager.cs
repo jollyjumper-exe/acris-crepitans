@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,5 +20,9 @@ public class GameManager : MonoBehaviour
     public void UpdateCrawledHeight(float newHeight)
     {
         CrawledHeight = newHeight;
+    }
+
+    public void LeaveGame(){
+        SceneManager.LoadScene("MainMenu");
     }
 }

@@ -78,5 +78,9 @@ public class PlayerManager : MonoBehaviour
         playerVisual.localPosition = target;
         isJumping = false;
     }
+
+    public void ReportCollision(){
+        GameManager.Instance.LeaveGame();
+    }
 }
 
