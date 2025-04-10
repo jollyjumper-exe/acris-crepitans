@@ -13,6 +13,8 @@ public class EnvironmentManager : MonoBehaviour
     private List<GameObject> activeTiles = new List<GameObject>();
     private Camera mainCamera;
 
+    private float totalScrollDistance = 0f;
+
     private void Start()
     {
         mainCamera = Camera.main;
@@ -27,6 +29,10 @@ public class EnvironmentManager : MonoBehaviour
 
     private void Update()
     {
+        float deltaY = scrollSpeed * Time.deltaTime;
+        totalScrollDistance += deltaY;
+        GameManager.Instance.UpdateCrawledHeight(totalScrollDistance);
+
         for (int i = activeTiles.Count - 1; i >= 0; i--)
         {
             GameObject tile = activeTiles[i];

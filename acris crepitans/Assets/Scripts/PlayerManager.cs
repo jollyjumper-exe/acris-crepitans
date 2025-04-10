@@ -11,7 +11,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float jumpDuration = 0.2f;
 
     [SerializeField] private Camera mainCamera;
-    [SerializeField] private float screenOffset = 0.5f; 
+    [SerializeField] private float screenOffset = 0.5f;
 
     private bool isOnLeft = true;
     private bool isJumping = false;
@@ -22,7 +22,7 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
         if (mainCamera == null)
-        mainCamera = Camera.main;
+            mainCamera = Camera.main;
 
         Vector3 leftWorld = mainCamera.ScreenToWorldPoint(new Vector3(0, Screen.height / 2f, mainCamera.nearClipPlane));
         Vector3 rightWorld = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height / 2f, mainCamera.nearClipPlane));
@@ -30,17 +30,15 @@ public class PlayerManager : MonoBehaviour
         leftWorld.x += screenOffset;
         rightWorld.x -= screenOffset;
 
-        float screenY = Screen.height * 0.25f;
-        Vector3 worldY = mainCamera.ScreenToWorldPoint(new Vector3(0, screenY, mainCamera.nearClipPlane));
-        float y = worldY.y;
+        float y = playerVisual.position.y;
         float z = playerVisual.position.z;
-
         leftPos = new Vector3(leftWorld.x, y, z);
         rightPos = new Vector3(rightWorld.x, y, z);
 
         playerVisual.position = leftPos;
         isOnLeft = true;
     }
+
     private void Update()
     {
         if (inputManager.isTapped && !isJumping)
@@ -48,6 +46,9 @@ public class PlayerManager : MonoBehaviour
             Jump();
             backgroundManager.ChangeBackgroundColor();
         }
+
+        float crawlHeight = GameManager.Instance.CrawledHeight;
+        Debug.Log("Player Crawl Height: " + crawlHeight);
     }
 
     private void Jump()
@@ -78,3 +79,4 @@ public class PlayerManager : MonoBehaviour
         isJumping = false;
     }
 }
+
