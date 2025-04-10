@@ -24,9 +24,6 @@ public class TileManager : MonoBehaviour
 
     public void SpawnObstacles(GameObject tile, int intensity)
     {
-        Transform leftWall = tile.transform.Find("LeftWall");
-        Transform rightWall = tile.transform.Find("RightWall");
-
         for (int i = 0; i < intensity; i++)
         {
             bool spawnLeft = Random.value < 0.5f;
