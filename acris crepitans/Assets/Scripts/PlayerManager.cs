@@ -49,7 +49,6 @@ public class PlayerManager : MonoBehaviour
         }
 
         float crawlHeight = GameManager.Instance.CrawledHeight;
-        Debug.Log("Player Crawl Height: " + crawlHeight);
     }
 
     private void Jump()
