@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class EnvironmentManager : MonoBehaviour
 {
     [SerializeField] private GameObject tilePrefab;
+    [SerializeField] private GameObject firstTilePrefab;
     [SerializeField] private int tileCount = 5;
     [SerializeField] private float tileHeight = 1f;
     [SerializeField] private float scrollSpeed = 2f;
@@ -18,9 +19,13 @@ public class EnvironmentManager : MonoBehaviour
     {
         mainCamera = Camera.main;
 
+        Vector3 groundSpawnPos = new Vector3(0, 0, 1); 
+        GameObject groundTile = Instantiate(firstTilePrefab, groundSpawnPos, Quaternion.identity, tileParent);
+        activeTiles.Add(groundTile);
+
         for (int i = 0; i < tileCount; i++)
         {
-            Vector3 spawnPos = new Vector3(0, i * tileHeight, 1);
+            Vector3 spawnPos = new Vector3(0, (i * tileHeight) + tileHeight, 1); 
             GameObject tile = CreateTileWithObstacles(spawnPos);
             activeTiles.Add(tile);
         }

@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 6576701338339736457, guid: f0a9d1f0de45ca04e99e4493fb26a657, type: 3}
+  firstTilePrefab: {fileID: 6576701338339736457, guid: 1fc4778c9a310db44ba49bf73060f91e, type: 3}
   tileCount: 5
   tileHeight: 5
   scrollSpeed: 5
-  tileParent: {fileID: 0}
+  tileParent: {fileID: 4508410558568968075, guid: f0a9d1f0de45ca04e99e4493fb26a657, type: 3}
