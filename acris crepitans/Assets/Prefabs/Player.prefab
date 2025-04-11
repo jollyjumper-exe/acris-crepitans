@@ -235,6 +235,7 @@ MonoBehaviour:
   jumpDuration: 0.2
   mainCamera: {fileID: 4931169133982274607}
   screenOffset: 0.5
+  deathEffectPrefab: {fileID: 8116752676838891626, guid: 0b33addde43c9b24ab6a6e09cee5b477, type: 3}
 --- !u!1 &8932205094963555176
 GameObject:
   m_ObjectHideFlags: 0

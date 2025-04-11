@@ -14,6 +14,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private float screenOffset = 0.5f;
 
+    [SerializeField] private GameObject deathEffectPrefab;
+
     private bool isOnLeft = true;
     private bool isJumping = false;
 
@@ -101,6 +103,12 @@ public class PlayerManager : MonoBehaviour
     {
         StopAllCoroutines();
         isJumping = false;
+
+        if (playerVisual != null)
+        {
+            Instantiate(deathEffectPrefab, playerVisual.position, Quaternion.identity);
+            Destroy(playerVisual.gameObject);
+        }
     } 
 }
 
