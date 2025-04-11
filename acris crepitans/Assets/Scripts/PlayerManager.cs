@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    public static PlayerManager Instance { get; private set; }
+
     [SerializeField] private InputManager inputManager;
     [SerializeField] private Transform playerVisual;
 
@@ -17,6 +19,16 @@ public class PlayerManager : MonoBehaviour
 
     private Vector3 leftPos;
     private Vector3 rightPos;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -42,7 +54,8 @@ public class PlayerManager : MonoBehaviour
     }
 
     private void Update()
-    {
+    {   
+        if(GameManager.Instance.CurrentState != GameState.Playing) return;
         if (inputManager.isTapped && !isJumping)
         {
             Jump();
@@ -79,8 +92,15 @@ public class PlayerManager : MonoBehaviour
         isJumping = false;
     }
 
-    public void ReportCollision(){
-        GameManager.Instance.LeaveGame();
+    public void ReportCollision()
+    {
+        GameManager.Instance.SetGameState(GameState.Lost);
     }
+
+    public void KillPlayer()
+    {
+        StopAllCoroutines();
+        isJumping = false;
+    } 
 }
 
