@@ -28,14 +28,14 @@ public class GameManager : MonoBehaviour
 
     public int GetCurrentObstacleIntensity()
     {
-        if(CrawledHeight < 10f) return 0;
+        if(CrawledHeight < 5f) return 0;
         return Mathf.Clamp(Mathf.FloorToInt(CrawledHeight / 50f) + 1, 1, 10);
     }
 
     public float GetCurrentSpeed()
     {
-        if(GetCurrentObstacleIntensity() < 1) return 2f;
-        return Mathf.Clamp(2f + (float) CrawledHeight / 100f, 2, 15);
+        if(GetCurrentObstacleIntensity() < 1) return 5f;
+        return Mathf.Clamp(5f + (float) CrawledHeight / 100f, 5, 15);
     }
 
 }
