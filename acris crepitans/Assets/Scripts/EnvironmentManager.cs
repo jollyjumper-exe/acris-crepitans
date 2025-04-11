@@ -8,7 +8,6 @@ public class EnvironmentManager : MonoBehaviour
     [SerializeField] private float tileHeight = 1f;
     [SerializeField] private float scrollSpeed = 2f;
     [SerializeField] private Transform tileParent;
-    [SerializeField] private int obstacleIntensity = 1; // You can tweak this per difficulty
 
     private List<GameObject> activeTiles = new List<GameObject>();
     private Camera mainCamera;
@@ -33,6 +32,8 @@ public class EnvironmentManager : MonoBehaviour
         totalScrollDistance += deltaY;
         GameManager.Instance.UpdateCrawledHeight(totalScrollDistance);
 
+        scrollSpeed = GameManager.Instance.GetCurrentSpeed();
+
         for (int i = activeTiles.Count - 1; i >= 0; i--)
         {
             GameObject tile = activeTiles[i];
@@ -54,9 +55,12 @@ public class EnvironmentManager : MonoBehaviour
 
     private GameObject CreateTileWithObstacles(Vector3 position)
     {
+        int currentIntensity = GameManager.Instance.GetCurrentObstacleIntensity();
+        Debug.Log($"Intensity {currentIntensity}");
+
         GameObject tile = Instantiate(tilePrefab, position, Quaternion.identity, tileParent);
         TileManager tileManager = tile.GetComponent<TileManager>(); 
-        tileManager.SpawnObstacles(tile, obstacleIntensity);
+        tileManager.SpawnObstacles(tile, currentIntensity);
         return tile;
     }
 
