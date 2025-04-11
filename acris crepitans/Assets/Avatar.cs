@@ -6,7 +6,6 @@ public class Avatar : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collision");
         if (collision.gameObject.CompareTag("Obstacle"))
         {
             playerManager.ReportCollision();

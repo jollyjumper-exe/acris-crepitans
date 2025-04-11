@@ -56,7 +56,6 @@ public class EnvironmentManager : MonoBehaviour
     private GameObject CreateTileWithObstacles(Vector3 position)
     {
         int currentIntensity = GameManager.Instance.GetCurrentObstacleIntensity();
-        Debug.Log($"Intensity {currentIntensity}");
 
         GameObject tile = Instantiate(tilePrefab, position, Quaternion.identity, tileParent);
         TileManager tileManager = tile.GetComponent<TileManager>(); 
