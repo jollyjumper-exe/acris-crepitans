@@ -1,11 +1,12 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance { get; private set; }
 
     [SerializeField] private InputManager inputManager;
-    [SerializeField] private Transform playerVisual;
+    [SerializeField] private Transform avatar;
 
     [SerializeField] private float jumpDistance = 3f;
     [SerializeField] private float jumpHeight = 1f;
@@ -46,12 +47,12 @@ public class PlayerManager : MonoBehaviour
         float screenY = Screen.height * 0.25f;
         Vector3 worldY = mainCamera.ScreenToWorldPoint(new Vector3(0, screenY, mainCamera.nearClipPlane));
         float y = worldY.y;
-        float z = playerVisual.position.z;
+        float z = avatar.position.z;
 
         leftPos = new Vector3(leftWorld.x, y, z);
         rightPos = new Vector3(rightWorld.x, y, z);
 
-        playerVisual.position = leftPos;
+        avatar.position = leftPos;
         isOnLeft = true;
     }
 
@@ -76,7 +77,7 @@ public class PlayerManager : MonoBehaviour
 
     private System.Collections.IEnumerator JumpTo(Vector3 target)
     {
-        Vector3 start = playerVisual.localPosition;
+        Vector3 start = avatar.localPosition;
         float elapsed = 0f;
 
         while (elapsed < jumpDuration)
@@ -85,19 +86,66 @@ public class PlayerManager : MonoBehaviour
             float t = elapsed / jumpDuration;
 
             float yOffset = Mathf.Sin(t * Mathf.PI) * jumpHeight;
-            playerVisual.localPosition = Vector3.Lerp(start, target, t) + Vector3.up * yOffset;
+            avatar.localPosition = Vector3.Lerp(start, target, t) + Vector3.up * yOffset;
 
             yield return null;
         }
 
-        playerVisual.localPosition = target;
+        avatar.localPosition = target;
         isJumping = false;
     }
 
     public void ReportCollision(Collider other)
     {
-        if(other.gameObject.CompareTag("Obstacle")) GameManager.Instance.SetGameState(GameState.Lost);
+        if(other.gameObject.CompareTag("Obstacle")) GameManager.Instance.TakeDamage(1);
         else if(other.gameObject.CompareTag("Coin")) {other.gameObject.GetComponent<Coin>().Collect(); GameManager.Instance.ReceiveCoin();}
+    }
+
+    public void PlayDamageAnimation(int hitPoints)
+    {
+        StartCoroutine(FlickerCoroutine(hitPoints));
+    }
+
+    private IEnumerator FlickerCoroutine(int hitPoints)
+    {
+        avatar.gameObject.GetComponent<Avatar>().UpdateHitPoints(hitPoints);
+        float flickerDuration = 2f;
+        float flickerInterval = 0.1f;
+
+        Collider[] colliders = avatar.GetComponentsInChildren<Collider>();
+        foreach (var col in colliders)
+            col.enabled = false;
+
+        float timer = 0f;
+        bool visible = true;
+
+        MeshRenderer[] renderers = avatar.GetComponentsInChildren<MeshRenderer>();
+        if (renderers.Length == 0)
+        {
+            Debug.LogWarning("Avatar has no MeshRenderers.");
+            yield break;
+        }
+
+        while (timer < flickerDuration)
+        {
+            visible = !visible;
+
+            foreach (var rend in renderers)
+            {
+                rend.enabled = visible;
+            }
+
+            yield return new WaitForSeconds(flickerInterval);
+            timer += flickerInterval;
+        }
+
+        foreach (var rend in renderers)
+        {
+            rend.enabled = true;
+        }
+
+        foreach (var col in colliders)
+            col.enabled = true;
     }
 
     public void KillPlayer()
@@ -105,11 +153,11 @@ public class PlayerManager : MonoBehaviour
         StopAllCoroutines();
         isJumping = false;
 
-        if (playerVisual != null)
+        if (avatar != null)
         {
-            Instantiate(deathEffectPrefab, playerVisual.position, Quaternion.identity);
-            Destroy(playerVisual.gameObject);
+            Instantiate(deathEffectPrefab, avatar.position, Quaternion.identity);
+            Destroy(avatar.gameObject);
         }
-    } 
+    }
 }
 

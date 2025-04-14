@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     private int coins = 0;
 
+    private int hitPoints = 3;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -72,6 +74,12 @@ public class GameManager : MonoBehaviour
     public void ReceiveCoin(){
         coins++;
         UIManager.Instance.UpdateCoins(coins);
+    }
+
+    public void TakeDamage(int damage){
+        hitPoints -= damage;
+        PlayerManager.Instance.PlayDamageAnimation(hitPoints);
+        if(hitPoints <= 0) SetGameState(GameState.Lost);
     }
 
 }
