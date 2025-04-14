@@ -101,14 +101,13 @@ public class PlayerManager : MonoBehaviour
         else if(other.gameObject.CompareTag("Coin")) {other.gameObject.GetComponent<Coin>().Collect(); GameManager.Instance.ReceiveCoin();}
     }
 
-    public void PlayDamageAnimation(int hitPoints)
+    public void PlayDamageAnimation()
     {
-        StartCoroutine(FlickerCoroutine(hitPoints));
+        StartCoroutine(FlickerCoroutine());
     }
 
-    private IEnumerator FlickerCoroutine(int hitPoints)
-    {
-        avatar.gameObject.GetComponent<Avatar>().UpdateHitPoints(hitPoints);
+    private IEnumerator FlickerCoroutine()
+    {   
         float flickerDuration = 2f;
         float flickerInterval = 0.1f;
 
@@ -158,6 +157,10 @@ public class PlayerManager : MonoBehaviour
             Instantiate(deathEffectPrefab, avatar.position, Quaternion.identity);
             Destroy(avatar.gameObject);
         }
+    }
+
+    public void UpdateHitPoints(int hitPoints){
+        avatar.gameObject.GetComponent<Avatar>().UpdateHitPoints(hitPoints);
     }
 }
 

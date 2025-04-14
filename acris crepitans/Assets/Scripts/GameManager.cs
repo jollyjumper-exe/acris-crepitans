@@ -72,14 +72,21 @@ public class GameManager : MonoBehaviour
     }
 
     public void ReceiveCoin(){
-        coins++;
+        coins = (coins+1)%10;
         UIManager.Instance.UpdateCoins(coins);
+        if(coins==0) ActivateCoinBonus();
     }
 
     public void TakeDamage(int damage){
         hitPoints -= damage;
-        PlayerManager.Instance.PlayDamageAnimation(hitPoints);
+        PlayerManager.Instance.UpdateHitPoints(hitPoints);
+        PlayerManager.Instance.PlayDamageAnimation();
         if(hitPoints <= 0) SetGameState(GameState.Lost);
+    }
+
+    private void ActivateCoinBonus(){
+        hitPoints = 3;
+        PlayerManager.Instance.UpdateHitPoints(hitPoints);
     }
 
 }
