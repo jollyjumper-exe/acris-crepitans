@@ -4,11 +4,8 @@ public class Avatar : MonoBehaviour
 {
     public PlayerManager playerManager;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Obstacle"))
-        {
-            playerManager.ReportCollision();
-        }
+        playerManager.ReportCollision(other);
     }
 }

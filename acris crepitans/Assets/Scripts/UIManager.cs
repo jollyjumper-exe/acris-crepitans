@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject gameplayUI;
     [SerializeField] private TMP_Text finalScoreText;
+    [SerializeField] private TMP_Text coinsText;
 
     private void Awake()
     {
@@ -35,5 +36,10 @@ public class UIManager : MonoBehaviour
     public void OnTapReplay()
     {
         GameManager.Instance.LeaveGame();
+    }
+
+    public void UpdateCoins(int coins)
+    {
+        coinsText.text = coins.ToString();
     }
 }

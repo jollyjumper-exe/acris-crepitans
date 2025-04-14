@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     public GameState CurrentState { get; private set; } = GameState.Playing;
 
+    private int coins = 0;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -65,6 +67,11 @@ public class GameManager : MonoBehaviour
             case GameState.Playing:
                 break;
         }
+    }
+
+    public void ReceiveCoin(){
+        coins++;
+        UIManager.Instance.UpdateCoins(coins);
     }
 
 }

@@ -94,9 +94,10 @@ public class PlayerManager : MonoBehaviour
         isJumping = false;
     }
 
-    public void ReportCollision()
+    public void ReportCollision(Collider other)
     {
-        GameManager.Instance.SetGameState(GameState.Lost);
+        if(other.gameObject.CompareTag("Obstacle")) GameManager.Instance.SetGameState(GameState.Lost);
+        else if(other.gameObject.CompareTag("Coin")) {other.gameObject.GetComponent<Coin>().Collect(); GameManager.Instance.ReceiveCoin();}
     }
 
     public void KillPlayer()
