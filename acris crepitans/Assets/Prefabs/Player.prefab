@@ -435,7 +435,16 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 30dbcc7b-6106-4e0e-8a8f-e291c18d3e7a
+    m_ActionName: 'Gameplay/Tap[/Device Simulator Touchscreen/primaryTouch/tap,/Simulated
+      Touchscreen/primaryTouch/tap]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e5bd123e-e696-40f1-9bb0-cb333ee12b17
+    m_ActionName: 'Gameplay/Hold[/Device Simulator Touchscreen/press,/Simulated Touchscreen/press]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -453,7 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab0604d17d318e4898f7518acdcc0a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTapped: 0
+  playerInput: {fileID: 2329518329805960780}
 --- !u!114 &6963279624285932382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,6 +483,9 @@ MonoBehaviour:
   mainCamera: {fileID: 4931169133982274607}
   screenOffset: 0.5
   deathEffectPrefab: {fileID: 8116752676838891626, guid: 0b33addde43c9b24ab6a6e09cee5b477, type: 3}
+  hoverFuel: 3
+  hoverFuelDrainPerSecond: 1
+  hoverHeightOffset: 2
 --- !u!1 &8932205094963555176
 GameObject:
   m_ObjectHideFlags: 0

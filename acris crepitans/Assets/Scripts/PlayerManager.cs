@@ -17,11 +17,21 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private GameObject deathEffectPrefab;
 
+    [Header("Hover Settings")]
+    [SerializeField] private float hoverFuel = 3f;
+    [SerializeField] private float hoverFuelDrainPerSecond = 1f;
+    [SerializeField] private float hoverHeightOffset = 2f;
+
     private bool isOnLeft = true;
     private bool isJumping = false;
+    private bool isHovering = false;
+    private bool wasHoveringToLeft;
 
     private Vector3 leftPos;
     private Vector3 rightPos;
+    private Vector3 midPos;
+
+    private Coroutine hoverCoroutine;
 
     private void Awake()
     {
@@ -51,17 +61,30 @@ public class PlayerManager : MonoBehaviour
 
         leftPos = new Vector3(leftWorld.x, y, z);
         rightPos = new Vector3(rightWorld.x, y, z);
+        midPos = Vector3.Lerp(leftPos, rightPos, 0.5f) + Vector3.up * hoverHeightOffset;
 
         avatar.position = leftPos;
         isOnLeft = true;
     }
 
     private void Update()
-    {   
-        if(GameManager.Instance.CurrentState != GameState.Playing) return;
-        if (inputManager.isTapped && !isJumping)
+    {
+        if (GameManager.Instance.CurrentState != GameState.Playing) return;
+
+        if (inputManager.isTapped && !isJumping && !isHovering)
         {
             Jump();
+        }
+
+        if (inputManager.isHolding && hoverCoroutine == null && !isJumping)// && hoverFuel > 0f)
+        {
+            wasHoveringToLeft = !isOnLeft;
+            hoverCoroutine = StartCoroutine(Hover());
+        }
+
+        if (!inputManager.isHolding && isHovering)
+        {
+            StopHover();
         }
 
         float crawlHeight = GameManager.Instance.CrawledHeight;
@@ -75,7 +98,7 @@ public class PlayerManager : MonoBehaviour
         StartCoroutine(JumpTo(target));
     }
 
-    private System.Collections.IEnumerator JumpTo(Vector3 target)
+    private IEnumerator JumpTo(Vector3 target)
     {
         Vector3 start = avatar.localPosition;
         float elapsed = 0f;
@@ -95,10 +118,71 @@ public class PlayerManager : MonoBehaviour
         isJumping = false;
     }
 
+    private IEnumerator Hover()
+    {
+        isHovering = true;
+
+        while (inputManager.isHolding) //&& hoverFuel > 0f)
+        {
+            avatar.localPosition = Vector3.Lerp(avatar.localPosition, midPos, Time.deltaTime * 10f);
+            hoverFuel -= hoverFuelDrainPerSecond * Time.deltaTime;
+            yield return null;
+        }
+
+        if (!inputManager.isHolding && isHovering)
+        {
+            StopHover();
+        }
+
+        hoverCoroutine = null;
+
+    }
+
+    private void StopHover()
+    {
+        if (hoverCoroutine != null)
+        {
+            StopCoroutine(hoverCoroutine);
+            hoverCoroutine = null;
+        }
+
+        isHovering = false;
+
+        Vector3 target = wasHoveringToLeft ? leftPos : rightPos;
+        isOnLeft = wasHoveringToLeft;
+
+        StartCoroutine(SnapTo(target));
+    }
+
+
+    private IEnumerator SnapTo(Vector3 target)
+    {
+        Vector3 start = avatar.localPosition;
+        float elapsed = 0f;
+        float duration = 0.1f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+            avatar.localPosition = Vector3.Lerp(start, target, t);
+            yield return null;
+        }
+
+        avatar.localPosition = target;
+    }
+
     public void ReportCollision(Collider other)
     {
-        if(other.gameObject.CompareTag("Obstacle")) GameManager.Instance.TakeDamage(1);
-        else if(other.gameObject.CompareTag("Coin")) {other.gameObject.GetComponent<Coin>().Collect(); GameManager.Instance.ReceiveCoin();}
+        if (other.gameObject.CompareTag("Obstacle"))
+        {
+            GameManager.Instance.TakeDamage(1);
+        }
+        else if (other.gameObject.CompareTag("Coin"))
+        {
+            other.gameObject.GetComponent<Coin>().Collect();
+            GameManager.Instance.ReceiveCoin();
+        }
     }
 
     public void PlayDamageAnimation()
@@ -107,7 +191,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     private IEnumerator FlickerCoroutine()
-    {   
+    {
         float flickerDuration = 2f;
         float flickerInterval = 0.1f;
 
@@ -159,8 +243,8 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void UpdateHitPoints(int hitPoints){
+    public void UpdateHitPoints(int hitPoints)
+    {
         avatar.gameObject.GetComponent<Avatar>().UpdateHitPoints(hitPoints);
     }
 }
-

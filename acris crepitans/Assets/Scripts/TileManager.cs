@@ -28,16 +28,23 @@ public class TileManager : MonoBehaviour
     public void SpawnObstacles(GameObject tile, int intensity)
     {
         HashSet<string> usedSlots = new HashSet<string>();
+        HashSet<int> leftIndices = new HashSet<int>();
+        HashSet<int> rightIndices = new HashSet<int>();
 
-        for (int i = 0; i < intensity; i++)
+        int attempts = 0;
+        int maxAttempts = intensity * 3;
+
+        while (usedSlots.Count < intensity && attempts < maxAttempts)
         {
+            attempts++;
+
             bool spawnLeft = Random.value < 0.5f;
             Transform wall = spawnLeft ? leftWall : rightWall;
-
             int slotIndex = Random.Range(0, slotsPerWall);
             string slotName = $"{(spawnLeft ? "L" : "R")}_{slotIndex}";
 
             if (usedSlots.Contains(slotName)) continue;
+            if (IsForbiddenSlot(spawnLeft, slotIndex, leftIndices, rightIndices)) continue;
 
             Transform slot = wall.Find($"Slot_{slotIndex}");
             if (slot != null)
@@ -53,6 +60,8 @@ public class TileManager : MonoBehaviour
                 }
 
                 usedSlots.Add(slotName);
+                if (spawnLeft) leftIndices.Add(slotIndex);
+                else rightIndices.Add(slotIndex);
             }
         }
 
@@ -82,4 +91,15 @@ public class TileManager : MonoBehaviour
             }
         }
     }
+
+    private bool IsForbiddenSlot(bool spawnLeft, int slotIndex, HashSet<int> leftIndices, HashSet<int> rightIndices)
+    {
+        HashSet<int> otherSide = spawnLeft ? rightIndices : leftIndices;
+
+        return otherSide.Contains(slotIndex) 
+            || otherSide.Contains(slotIndex - 1) 
+            || otherSide.Contains(slotIndex + 1)
+            || (spawnLeft && slotIndex == 0 && rightIndices.Contains(1)); 
+    }
+
 }
