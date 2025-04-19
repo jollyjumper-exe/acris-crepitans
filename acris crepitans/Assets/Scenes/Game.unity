@@ -376,7 +376,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 931c6245e8a6a8a48a5127cf8f25c028, type: 3}
---- !u!1001 &1193176945895182769
+--- !u!1001 &2045207353
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -384,6 +384,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2772791305957072912, guid: 66233fc6371f37f44b03cbf3c13c18cb, type: 3}
+      propertyPath: playerSource
+      value: 
+      objectReference: {fileID: 7654919892118973738}
     - target: {fileID: 6536465564860545842, guid: 66233fc6371f37f44b03cbf3c13c18cb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.38817
@@ -426,7 +430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8291569725971987818, guid: 66233fc6371f37f44b03cbf3c13c18cb, type: 3}
       propertyPath: m_Name
-      value: MusicManager
+      value: Audio
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -604,6 +608,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24677fb2049c7ce49a6dfff3817630de, type: 3}
+--- !u!82 &7654919892118973738 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2820419692893231199, guid: 24677fb2049c7ce49a6dfff3817630de, type: 3}
+  m_PrefabInstance: {fileID: 7654919892118973737}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8866135462814133259
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -671,5 +680,5 @@ SceneRoots:
   - {fileID: 5981119979628048901}
   - {fileID: 1450093395}
   - {fileID: 8866135462814133259}
-  - {fileID: 1193176945895182769}
+  - {fileID: 2045207353}
   - {fileID: 1222640381}

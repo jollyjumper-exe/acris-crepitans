@@ -93,6 +93,9 @@ public class PlayerManager : MonoBehaviour
     private void Jump()
     {
         isJumping = true;
+
+        AudioManager.Instance.PlayJump();
+        
         Vector3 target = isOnLeft ? rightPos : leftPos;
         isOnLeft = !isOnLeft;
         StartCoroutine(JumpTo(target));

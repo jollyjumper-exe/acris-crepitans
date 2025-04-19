@@ -30,6 +30,10 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start(){
+        AudioManager.Instance.StartMusic();
+    }
+
     public void UpdateCrawledHeight(float newHeight)
     {
         CrawledHeight = newHeight;
@@ -61,7 +65,7 @@ public class GameManager : MonoBehaviour
             case GameState.Lost:
                 PlayerManager.Instance.KillPlayer();
                 UIManager.Instance.ShowGameOverScreen();
-                MusicManager.Instance.MuffleMusic(true);
+                AudioManager.Instance.MuffleMusic(true);
                 break;
 
             case GameState.Paused:
@@ -76,16 +80,23 @@ public class GameManager : MonoBehaviour
         coins = (coins+1)%10;
         UIManager.Instance.UpdateCoins(coins);
         if(coins==0) ActivateCoinBonus();
+        else AudioManager.Instance.PlayCoin();
     }
 
     public void TakeDamage(int damage){
         hitPoints -= damage;
         PlayerManager.Instance.UpdateHitPoints(hitPoints);
         PlayerManager.Instance.PlayDamageAnimation();
-        if(hitPoints <= 0) SetGameState(GameState.Lost);
+        if(hitPoints <= 0)
+        {
+            SetGameState(GameState.Lost);
+            AudioManager.Instance.PlayDead();
+        }
+        else AudioManager.Instance.PlayDamage();
     }
 
     private void ActivateCoinBonus(){
+        AudioManager.Instance.PlayCoinBonus();
         hitPoints = 3;
         PlayerManager.Instance.UpdateHitPoints(hitPoints);
     }
