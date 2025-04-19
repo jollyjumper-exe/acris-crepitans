@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
             case GameState.Lost:
                 PlayerManager.Instance.KillPlayer();
                 UIManager.Instance.ShowGameOverScreen();
+                MusicManager.Instance.MuffleMusic(true);
                 break;
 
             case GameState.Paused:
