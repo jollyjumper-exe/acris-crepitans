@@ -127,6 +127,8 @@ public class PlayerManager : MonoBehaviour
 
         avatar.localPosition = target;
         avatar.localRotation = Quaternion.identity;
+        isJumping = false;
+
     }
 
     private IEnumerator Hover()
@@ -204,14 +206,10 @@ public class PlayerManager : MonoBehaviour
     private IEnumerator FlickerCoroutine()
     {
         float flickerDuration = 2f;
-        float flickerInterval = 0.1f;
 
         Collider[] colliders = avatar.GetComponentsInChildren<Collider>();
         foreach (var col in colliders)
             col.enabled = false;
-
-        float timer = 0f;
-        bool visible = true;
 
         MeshRenderer[] renderers = avatar.GetComponentsInChildren<MeshRenderer>();
         if (renderers.Length == 0)
@@ -220,22 +218,22 @@ public class PlayerManager : MonoBehaviour
             yield break;
         }
 
-        while (timer < flickerDuration)
+        foreach (var rend in renderers)
         {
-            visible = !visible;
-
-            foreach (var rend in renderers)
+            foreach (var mat in rend.materials)
             {
-                rend.enabled = visible;
+                mat.SetFloat("_Flicker", 1);
             }
-
-            yield return new WaitForSeconds(flickerInterval);
-            timer += flickerInterval;
         }
+
+        yield return new WaitForSeconds(flickerDuration);
 
         foreach (var rend in renderers)
         {
-            rend.enabled = true;
+            foreach (var mat in rend.materials)
+            {
+                mat.SetFloat("_Flicker", 0);
+            }
         }
 
         foreach (var col in colliders)
