@@ -37,10 +37,9 @@ public class ObstacleManager : MonoBehaviour
         {
             animator.SetTrigger("turnOff");
             isAwake = false;
-            hasPlayedParticles = false; // reset
+            hasPlayedParticles = false;
         }
 
-        // ⚡ Trigger electricity particles when player is super close
         if (isAwake && !hasPlayedParticles && distance < particleTriggerDistance)
         {
             if (electricityParticles)
