@@ -104,6 +104,12 @@ public class PlayerManager : MonoBehaviour
     private IEnumerator JumpTo(Vector3 target)
     {
         Vector3 start = avatar.localPosition;
+        Quaternion startRot = avatar.localRotation;
+
+        float tiltAngle = 20f;
+        float direction = isOnLeft ? 1f : -1f;
+        Quaternion targetRot = Quaternion.Euler(0f, 0f, tiltAngle * direction);
+
         float elapsed = 0f;
 
         while (elapsed < jumpDuration)
@@ -114,11 +120,13 @@ public class PlayerManager : MonoBehaviour
             float yOffset = Mathf.Sin(t * Mathf.PI) * jumpHeight;
             avatar.localPosition = Vector3.Lerp(start, target, t) + Vector3.up * yOffset;
 
+            avatar.localRotation = Quaternion.Slerp(startRot, targetRot, Mathf.Sin(t * Mathf.PI)); // Tilt mid-jump
+
             yield return null;
         }
 
         avatar.localPosition = target;
-        isJumping = false;
+        avatar.localRotation = Quaternion.identity;
     }
 
     private IEnumerator Hover()
