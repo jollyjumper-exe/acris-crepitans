@@ -4,7 +4,10 @@ public class AudioManager : MonoBehaviour
 {
         public static AudioManager Instance;
 
-        [SerializeField] private AudioSource musicSource;
+        [SerializeField]
+        private AudioSource musicSource;
+        public AudioSource MusicSource => musicSource;
+        
         private AudioLowPassFilter musicLowPassFilter;
 
         [SerializeField] private AudioSource playerSource;

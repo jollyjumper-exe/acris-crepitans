@@ -367,6 +367,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4567433626142866435, guid: 931c6245e8a6a8a48a5127cf8f25c028, type: 3}
+      propertyPath: saturationBoost
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6875595274697125173, guid: 931c6245e8a6a8a48a5127cf8f25c028, type: 3}
       propertyPath: m_Name
       value: Background
