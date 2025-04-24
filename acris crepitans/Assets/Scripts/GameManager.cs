@@ -78,7 +78,8 @@ public class GameManager : MonoBehaviour
 
     public void ReceiveCoin(){
         coins = (coins+1)%10;
-        UIManager.Instance.UpdateCoins(coins);
+        float percent = coins/10f;
+        PlayerManager.Instance.UpdateCoinPercentage(percent);
         if(coins==0) ActivateCoinBonus();
         else AudioManager.Instance.PlayCoin();
     }

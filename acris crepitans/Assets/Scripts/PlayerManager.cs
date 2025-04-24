@@ -256,4 +256,9 @@ public class PlayerManager : MonoBehaviour
     {
         avatar.gameObject.GetComponent<Avatar>().UpdateHitPoints(hitPoints);
     }
+
+    public void UpdateCoinPercentage(float percent)
+    {
+        avatar.gameObject.GetComponent<Avatar>().UpdateCoinPercentage(percent);
+    }
 }

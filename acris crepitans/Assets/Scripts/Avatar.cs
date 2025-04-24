@@ -18,8 +18,6 @@ public class Avatar : MonoBehaviour
 
     public void UpdateHitPoints(int hitPoints)
     {
-        hitPointsText.text = hitPoints.ToString();
-
         if (rend && rend.material.HasProperty("_Color"))
         {
             Color color;
@@ -41,6 +39,15 @@ public class Avatar : MonoBehaviour
             }
 
             rend.material.color = color;
+        }
+    }
+
+    public void UpdateCoinPercentage(float percentage)
+    {
+        Debug.Log($"Percent {percentage}");
+        if (rend && rend.material.HasProperty("_Percent"))
+        {
+            rend.material.SetFloat("_Percent", percentage);
         }
     }
 
