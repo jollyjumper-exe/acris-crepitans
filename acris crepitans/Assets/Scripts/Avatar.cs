@@ -3,7 +3,6 @@ using TMPro;
 
 public class Avatar : MonoBehaviour
 {
-    [SerializeField] private TMP_Text hitPointsText;
     private Renderer rend;
      
     void Awake()
@@ -42,12 +41,11 @@ public class Avatar : MonoBehaviour
         }
     }
 
-    public void UpdateCoinPercentage(float percentage)
+    public void UpdateCoinPercentage(float percent)
     {
-        Debug.Log($"Percent {percentage}");
         if (rend && rend.material.HasProperty("_Percent"))
         {
-            rend.material.SetFloat("_Percent", percentage);
+            rend.material.SetFloat("_Percent", percent);
         }
     }
 

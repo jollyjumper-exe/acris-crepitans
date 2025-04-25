@@ -3,12 +3,14 @@ using UnityEngine.UI;
 
 public class BackgroundManager : MonoBehaviour
 {
-    [Header("UI References")]
-    public Image backgroundImage;
-    public Canvas canvas;
-    public RectTransform canvasRectTransform;
+    public static BackgroundManager Instance;
 
-    [Header("Audio Settings")]
+    [Header("UI References")]
+    [SerializeField] private Image backgroundImage;
+    [SerializeField] private Canvas canvas;
+    [SerializeField] private RectTransform canvasRectTransform;
+
+    [Header("Response to Audio Settings")]
     [SerializeField] private bool useRMS = false;
     [SerializeField] private float hueScale = 10f;
     [SerializeField] private float brightness = 0.6f;
@@ -18,6 +20,16 @@ public class BackgroundManager : MonoBehaviour
     private Camera mainCamera;
     private AudioSource audioSource;
     private float[] spectrum;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -32,13 +44,10 @@ public class BackgroundManager : MonoBehaviour
 
         AdjustCanvasToCamera();
 
-        // Init spectrum array
         spectrum = new float[spectrumSize];
 
-        // Get audio source from AudioManager singleton
         audioSource = AudioManager.Instance.MusicSource;
 
-        // Set initial background color
         backgroundImage.color = Color.gray;
     }
 
@@ -87,7 +96,7 @@ public class BackgroundManager : MonoBehaviour
         for (int i = half; i < spectrum.Length; i++)
             highFreq += spectrum[i];
 
-        float ratio = highFreq / (lowFreq + 0.001f); // prevent division by zero
+        float ratio = highFreq / (lowFreq + 0.001f);
         return Mathf.Clamp01(ratio * saturationBoost);
     }
 

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 public class EnvironmentManager : MonoBehaviour
 {
+    public static EnvironmentManager Instance;
+
+    [Header("Settings")]
     [SerializeField] private GameObject tilePrefab;
     [SerializeField] private GameObject firstTilePrefab;
     [SerializeField] private int tileCount = 5;
@@ -14,6 +17,15 @@ public class EnvironmentManager : MonoBehaviour
     private Camera mainCamera;
 
     private float totalScrollDistance = 0f;
+
+    private void Awake(){
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
 
     private void Start()
     {

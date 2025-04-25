@@ -3,11 +3,15 @@ using System.Collections.Generic;
 
 public class TileManager : MonoBehaviour
 {
+
+    [Header("Settings")]
+    [SerializeField] private float screenOffset = 0.5f;
     [SerializeField] private Transform leftWall;
     [SerializeField] private Transform rightWall;
     [SerializeField] private GameObject obstaclePrefab;
     [SerializeField] private GameObject coinPrefab;
     [SerializeField] private int slotsPerWall = 10;
+
     float coinSpawnChance = 0.05f;
 
     private void Start()

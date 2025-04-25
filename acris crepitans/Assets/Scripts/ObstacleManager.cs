@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class ObstacleManager : MonoBehaviour
 {
-    public Animator animator;
-    public float activationDistance = 3f;
-    public float particleTriggerDistance = 1f;
-    public float yAboveOffset = 1f;
-    public ParticleSystem electricityParticles;
+    [Header("Settings")]
+    [SerializeField] private Animator animator;
+    [SerializeField] private float activationDistance = 3f;
+    [SerializeField] private float particleTriggerDistance = 1f;
+    [SerializeField] private float yAboveOffset = 1f;
+    [SerializeField] private ParticleSystem electricityParticles;
 
     private Transform player;
     private bool isAwake = false;

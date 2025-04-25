@@ -5,19 +5,19 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance { get; private set; }
 
+    [Header("General Settings")]
     [SerializeField] private InputManager inputManager;
     [SerializeField] private Transform avatar;
-
-    [SerializeField] private float jumpDistance = 3f;
-    [SerializeField] private float jumpHeight = 1f;
-    [SerializeField] private float jumpDuration = 0.2f;
-
     [SerializeField] private Camera mainCamera;
     [SerializeField] private float screenOffset = 0.5f;
 
+    [Header("Player Settings")]
+    [SerializeField] private float jumpDistance = 3f;
+    [SerializeField] private float jumpHeight = 1f;
+    [SerializeField] private float jumpDuration = 0.2f;
     [SerializeField] private GameObject deathEffectPrefab;
 
-    [Header("Hover Settings")]
+    [Header("Hover Settings (Unused)")]
     [SerializeField] private float hoverFuel = 3f;
     [SerializeField] private float hoverFuelDrainPerSecond = 1f;
     [SerializeField] private float hoverHeightOffset = 2f;

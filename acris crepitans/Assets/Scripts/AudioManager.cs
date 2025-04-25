@@ -4,12 +4,12 @@ public class AudioManager : MonoBehaviour
 {
         public static AudioManager Instance;
 
-        [SerializeField]
-        private AudioSource musicSource;
+        [Header("Music")]
+        [SerializeField] private AudioSource musicSource;
         public AudioSource MusicSource => musicSource;
-        
         private AudioLowPassFilter musicLowPassFilter;
 
+        [Header("Sound Effects")]
         [SerializeField] private AudioSource playerSource;
         [SerializeField] private AudioClip hoverClip;
         [SerializeField] private AudioClip jumpClip;

@@ -5,18 +5,20 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
+    [Header("Settings")]
     [SerializeField] TMP_Text heightText;
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject gameplayUI;
     [SerializeField] private TMP_Text finalScoreText;
-    [SerializeField] private TMP_Text coinsText;
 
     private void Awake()
     {
-        if (Instance == null)
-            Instance = this;
-        else
+        if (Instance != null && Instance != this)
+        {
             Destroy(gameObject);
+            return;
+        }
+        Instance = this;
     }
 
     void Update()
@@ -36,10 +38,5 @@ public class UIManager : MonoBehaviour
     public void OnTapReplay()
     {
         GameManager.Instance.LeaveGame();
-    }
-
-    public void UpdateCoins(int coins)
-    {
-        coinsText.text = coins.ToString();
     }
 }
