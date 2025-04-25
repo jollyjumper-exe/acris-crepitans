@@ -91,6 +91,10 @@ public class TileManager : MonoBehaviour
                 {
                     GameObject coin = Instantiate(coinPrefab, slot);
                     coin.transform.localPosition = Vector3.zero;
+
+                    Vector3 scale = coin.transform.localScale;
+                    scale.x *= -1;
+                    coin.transform.localScale = scale;
                 }
             }
         }
