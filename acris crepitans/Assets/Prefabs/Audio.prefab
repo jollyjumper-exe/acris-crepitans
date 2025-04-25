@@ -47,6 +47,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicSource: {fileID: 4948642717028951236}
+  musicClips:
+  - {fileID: 8300000, guid: e784ad5404434c7488d08ab0452169aa, type: 3}
+  - {fileID: 8300000, guid: 081dc0fe545bb1743ab29dd336406b80, type: 3}
   playerSource: {fileID: 0}
   hoverClip: {fileID: 0}
   jumpClip: {fileID: 8300000, guid: 69fd501827c33214eac4a0dab6a2e667, type: 3}
